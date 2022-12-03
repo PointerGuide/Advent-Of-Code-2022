@@ -15,7 +15,7 @@ foreach ((char[], char[]) compartment in compartments)
 Console.WriteLine(priorities.Sum());
 
 // Part two //
-List<HashSet<char>[]> groups = compartments.Select(c => c.Item1.Concat(c.Item2).ToHashSet()).Chunk(3).ToList();
+IEnumerable<HashSet<char>[]> groups = compartments.Select(c => c.Item1.Concat(c.Item2).ToHashSet()).Chunk(3);
 priorities.Clear();
 
 foreach (HashSet<char>[] group in groups)
