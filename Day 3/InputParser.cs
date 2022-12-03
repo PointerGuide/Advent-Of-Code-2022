@@ -2,9 +2,13 @@
 {
     internal static class InputParser
     {
-        public static void Parse(string filepath)
+        public static IEnumerable<(char[], char[])> Parse(string filename)
         {
-            throw new NotImplementedException();
+            string[] lines = File.ReadAllLines(filename);
+            IEnumerable<(char[], char[])> compartments = lines.Select(l => (l.Substring(0, l.Length / 2).ToCharArray(),
+                l.Substring(l.Length / 2, l.Length / 2).ToCharArray()));
+
+            return compartments;
         }
     }
 }
