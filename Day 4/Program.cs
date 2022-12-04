@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Day_4;
+﻿using Day_4;
 
 // Part one //
 IEnumerable<(HashSet<int>, HashSet<int>)> sections = InputParser.Parse("input.txt");
