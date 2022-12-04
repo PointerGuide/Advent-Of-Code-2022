@@ -32,9 +32,9 @@ string[] input = InputParser.Parse("input.txt");
 IEnumerable<int> pointsPerDuel = CalculatePoints(input);
 
 int totalScore = pointsPerDuel.Sum();
+Console.WriteLine(totalScore);
 
 // Part Two //
-
 Dictionary<string, string> decryption = new Dictionary<string, string>
 {
     //A - Rock            X - Lose
@@ -53,7 +53,10 @@ Dictionary<string, string> decryption = new Dictionary<string, string>
     { "B Z", "B Z" },
     { "C Z", "C X" }
 };
+
 totalScore = CalculatePoints(input.Select(i => decryption[i]).ToArray()).Sum();
+Console.WriteLine(totalScore);
+
 
 IEnumerable<int> CalculatePoints(IReadOnlyCollection<string> input)
 {

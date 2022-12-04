@@ -2,9 +2,9 @@
 
 // Part one //
 IEnumerable<(HashSet<int>, HashSet<int>)> sections = InputParser.Parse("input.txt");
-var fullyContains = sections.Select(s => s.Item1.IsSupersetOf(s.Item2) || s.Item1.IsSubsetOf(s.Item2));
-Console.WriteLine(fullyContains.Count(s => s));
+IEnumerable<bool> fullyContainPairs = sections.Select(s => s.Item1.IsSupersetOf(s.Item2) || s.Item1.IsSubsetOf(s.Item2));
+Console.WriteLine(fullyContainPairs.Count(s => s));
 
 // Part two //
-var overlapPair = sections.Select(s => s.Item1.Overlaps(s.Item2));
-Console.WriteLine(overlapPair.Count(s => s));
+IEnumerable<bool> overlapPairs = sections.Select(s => s.Item1.Overlaps(s.Item2));
+Console.WriteLine(overlapPairs.Count(s => s));
