@@ -6,7 +6,7 @@ internal static class InputParser
     {
         string[] lines = File.ReadAllLines(filename);
 
-        Dictionary<long, List<long>> elvesPacks = new Dictionary<long, List<long>>(1000);
+        Dictionary<long, List<long>> elvesPacks = new Dictionary<long, List<long>>(lines.Length);
         int elfIndex = 0;
 
         //Parse input
