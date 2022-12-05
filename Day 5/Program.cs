@@ -1,7 +1,7 @@
 ﻿using Day_5;
 
 //Parser works only for less than 10 stacks!
-string filename = "example.txt";
+string filename = "input.txt";
 (Stack<char>[] stacks, List<(int count, int from, int to)> instructions) = InputParser.Parse(filename);
 
 // Part one //
@@ -15,6 +15,13 @@ Console.WriteLine(secretCode);
 
 // Part two //
 (stacks, _) = InputParser.Parse(filename);
+foreach (var instruction in instructions)
+{
+    stacks[instruction.from].MoveAsStackTo(stacks[instruction.to], instruction.count);
+}
 
+secretCode = "";
+Array.ForEach(stacks, s => secretCode += s.Peek());
+Console.WriteLine(secretCode);
 
 
