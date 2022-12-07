@@ -1,4 +1,4 @@
-﻿namespace Day_7
+﻿namespace Day_8
 {
     internal static class InputParser
     {

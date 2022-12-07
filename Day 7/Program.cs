@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using Day_7;
+﻿using Day_7;
 
 // Parsing part //
 List<(string name, string[] args)> commands = InputParser.Parse("input.txt");
