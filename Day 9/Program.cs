@@ -6,12 +6,55 @@ bool[,] grid = new bool[gridSize, gridSize]; //Initial grid
 
 (int x, int y) headPos = (gridSize / 2, gridSize / 2);
 (int x, int y) tailPos = (gridSize / 2, gridSize / 2);
-List<(Direction direction, int steps)> commands = InputParser.Parse("input.txt");
+List<(Direction direction, int steps)> commands = InputParser.Parse("example.txt");
 
+// Part one //
 commands.ForEach(cmd => Move(cmd.direction, cmd.steps));
 if (printMovement)
     Console.SetCursorPosition(0, gridSize + 1);
 Console.WriteLine(grid.Cast<bool>().Count(x => x));
+
+// Part two //
+grid = new bool[gridSize, gridSize];
+headPos = (gridSize / 2, gridSize / 2);
+(int x, int y)[] tail = new (int, int)[9];
+tail = Array.ConvertAll(tail, k => (gridSize / 2, gridSize / 2));
+commands.ForEach(cmd => MoveRope(cmd.direction, cmd.steps));
+Console.WriteLine(grid.Cast<bool>().Count(x => x) + 1);
+
+void MoveRope(Direction direction, int steps)
+{
+    while (steps-- > 0)
+        StepRope(direction);
+}
+void StepRope(Direction direction)
+{
+    grid[tail[8].x, tail[8].y] = true;
+    MoveHead(direction);
+    int diffX = headPos.x - tail[0].x; int diffY = headPos.y - tail[0].y;
+    if (Math.Abs(diffX) <= 1 && Math.Abs(diffY) <= 1) return;
+    tail[0].x += Math.Sign(diffX);
+    tail[0].y += Math.Sign(diffY);
+    for (int i = 1; i <= 8; i++)
+    {
+        diffX = tail[i-1].x - tail[i].x; diffY = tail[i - 1].y - tail[i].y;
+        if (Math.Abs(diffX) <= 1 && Math.Abs(diffY) <= 1) continue;
+        tail[i].x += Math.Sign(diffX);
+        tail[i].y += Math.Sign(diffY);
+    }
+    /*
+    PrintGrid();
+    for (int i = 8; i >= 0; i--)
+    {
+        Console.SetCursorPosition(tail[i].x, tail[i].y);
+        Console.Write(i);
+    }
+    Console.SetCursorPosition(headPos.x, headPos.y);
+    Console.Write('H');
+    Thread.Sleep(1000);
+    */
+}
+
 void Move(Direction direction, int steps)
 {
     while(steps-- > 0)
