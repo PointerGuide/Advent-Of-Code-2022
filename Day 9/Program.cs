@@ -1,15 +1,16 @@
 ﻿using Day_9;
 
 const int gridSize = 1000;
+const bool printMovement = false;
 bool[,] grid = new bool[gridSize, gridSize]; //Initial grid
 
-(int x, int y) headPos = (gridSize/2, gridSize / 2);
-(int x, int y) headPosPrevious = (0, 0);
+(int x, int y) headPos = (gridSize / 2, gridSize / 2);
 (int x, int y) tailPos = (gridSize / 2, gridSize / 2);
 List<(Direction direction, int steps)> commands = InputParser.Parse("input.txt");
 
 commands.ForEach(cmd => Move(cmd.direction, cmd.steps));
-//Console.SetCursorPosition(0, gridSize + 1);
+if (printMovement)
+    Console.SetCursorPosition(0, gridSize + 1);
 Console.WriteLine(grid.Cast<bool>().Count(x => x));
 void Move(Direction direction, int steps)
 {
@@ -22,14 +23,16 @@ void Step(Direction direction)
     MoveHead(direction);
     MoveTail();
 
-    //PrintGrid();
-    //PrintHeadAndTail();
-    //Thread.Sleep(1000/60);
+    if (printMovement)
+    {
+        PrintGrid();
+        PrintHeadAndTail();
+        Thread.Sleep(1000);
+    }
 }
 void MakeTrace() => grid[tailPos.x, tailPos.y] = true;
 void MoveHead(Direction direction)
 {
-    headPosPrevious = (headPos.x, headPos.y);
     switch (direction)
     {
         case Direction.Right:
@@ -52,7 +55,8 @@ void MoveTail()
 {
     int diffX = headPos.x - tailPos.x; int diffY = headPos.y - tailPos.y;
     if (Math.Abs(diffX) <= 1 && Math.Abs(diffY) <= 1) return;
-    tailPos = (headPosPrevious.x, headPosPrevious.y);
+    tailPos.x += Math.Sign(diffX);
+    tailPos.y += Math.Sign(diffY);
 }
 void PrintHeadAndTail()
 {
